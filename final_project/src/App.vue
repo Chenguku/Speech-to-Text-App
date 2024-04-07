@@ -3,11 +3,11 @@ import HelloWorld from './components/HelloWorld.vue'
 import Navbar from './components/Navbar.vue'
 import { ref } from 'vue'
 let str
-const pog = ref(str)
+const currentUser = ref(str)
 </script>
 
 <template>
-  <Navbar :username="pog" />
+  <Navbar :username="currentUser" />
   <div>
     <a id="" target="_blank">
       <img src="./assets/vue.svg" class="logo" alt="Vue logo" />

@@ -8,10 +8,10 @@ const props = defineProps({
 <template>
     <div class="nav">
         <ul>
-            <li>Home</li>
-            <li>Login</li>
-            <li>Create an Account</li>
-            <li id="user">{{ username || "Please sign in" }}</li>
+            <li><router-link to='/'>Home</router-link></li>
+            <li><router-link to='/login'>Login</router-link></li>
+            <li><router-link to='/register'>Register</router-link></li>
+            <li id="user">{{ username || "Not Logged In" }}</li>
         </ul>
     </div>
 </template>
@@ -28,22 +28,31 @@ ul {
 li {
   float: left;
   color: white;
-  padding: 2%;
-  transition: background-color 0.3s;
+}
+
+a {
+    display: block;
+    color: white;
+    transition: background-color 0.3s;
+    text-align: center;
+    padding: 18px 24px;
+    text-decoration: none;
+}
+
+.router-link-active{
+    background-color: #04AA6D;
 }
 
 #user {
+    padding: 16px 24px;
     float:right;
-}
-#user:hover{
-    background-color: #333;
 }
 
 .nav{
     padding-bottom: 20px;
 }
 
-li:hover{
+li a:hover:not(#user, .router-link-active){
     background-color: black;
 }
 
