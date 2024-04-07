@@ -2,17 +2,29 @@
     <h1>Login to Access your Transcripts</h1>
     <div class="textinput">
     <p>Username:</p>
-    <input type="text">
+    <input type="text" id="username">
     </div>
     <div class="textinput">
     <p>Password:</p>
-    <input type="text">
+    <input type="text" id="password">
     </div>
-    <button id="register">Login</button>
+    <button class="signin" @click="handleLogin">Login</button>
     <div class="hasaccount">
     <label>Don't have an account? </label><router-link to='/register'>Register</router-link>
     </div>
 </template>
+
+<script setup>
+    import router from '../router'
+
+    function handleLogin(){
+        let userText = document.getElementById("username")
+        let passwordText = document.getElementById("password")
+        if(userText.value != ''  && passwordText.value != ''){
+            return router.push('/')
+        }
+    }
+</script>
 
 
 <style>
@@ -31,7 +43,7 @@
     p{
         margin-bottom: 0;
     }
-    #register{
+    .signin{
         margin-top: 40px;
         width: 42%;
         font-size: 20px;
