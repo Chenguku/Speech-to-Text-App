@@ -1,10 +1,13 @@
 const express = require('express')
 const app = express()
-const ROOT_DIR = __dirname
+const path = require('path')
 const PORT = process.env.PORT || 3000
 
+app.use(express.static(path.join(__dirname, './dist')))
 
-app.use(express.static(ROOT_DIR + '/dist'))
+app.use((req, res) => {
+  res.status(404).send('Error 404?');
+});
 
 app.listen(PORT, err => {
     if(err) console.log(err)
