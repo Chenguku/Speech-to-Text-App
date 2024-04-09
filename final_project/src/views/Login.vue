@@ -1,5 +1,5 @@
 <template>
-    <h1>Login to Access your Transcripts</h1>
+    <h1>Login</h1>
     <div class="textinput">
     <p>Username:</p>
     <input type="text" id="username">
@@ -17,11 +17,25 @@
 <script setup>
     import router from '../router'
 
-    function handleLogin(){
+    async function handleLogin(){
         let userText = document.getElementById("username")
         let passwordText = document.getElementById("password")
-        if(userText.value != ''  && passwordText.value != ''){
-            return router.push('/')
+
+        if(userText.value == ''  || passwordText.value == ''){
+            console.log('empty information')
+            return
+        }
+
+        const response = await fetch('http://localhost:3000/login', 
+        {
+            method: "POST", 
+            headers: {"Content-Type": 'application/json'},
+            body: JSON.stringify({"userID": userText, "password": passwordText})
+        })
+        const access = await response.json()
+        console.log(access)
+        if(access.success){
+            router.push('/')
         }
     }
 </script>
