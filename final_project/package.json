@@ -3,16 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "nodemon server.js",
-    "vite": "vite",
-    "start": "node server.js",
+    "dev": "vite",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "sqlite3": "^5.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.0.13"
   },

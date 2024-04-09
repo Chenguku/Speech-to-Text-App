@@ -3,7 +3,9 @@ const app = express()
 const path = require('path')
 const PORT = process.env.PORT || 3000
 
-app.use(express.static(path.join(__dirname, './dist')))
+app.get('/login', function(){
+  console.log('on login page')
+})
 
 app.use((req, res) => {
   res.status(404).send('Error 404?');
