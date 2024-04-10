@@ -21,7 +21,7 @@ exports.register = function (req, res, next) {
     let username = req.body.userID
     let password = req.body.password
 
-    if (!username || !password || req.headers.authorization) {
+    if (!username || !password) {
         res.end()
     }
 

@@ -14,7 +14,7 @@ const routes = [{
     path: '/register', name: 'Register', component: Register
 },
 {
-    path: '/transcripts', name: 'Transcripts', component: Transcripts
+    path: '/transcripts', name: 'Transcripts', component: Transcripts, props: true
 }
 ]
 

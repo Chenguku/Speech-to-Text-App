@@ -21,14 +21,14 @@
     import router from '../router'
     import { ref } from 'vue'
     const failedRegister = ref(false)
-    let authHeader
+    let isLoggedIn = false
 
     async function handleRegistration(){
         let userText = document.getElementById("username").value
         let passwordText = document.getElementById("password").value
 
-        if(userText.value == ''  || passwordText.value == ''){
-            console.log('empty information')
+        if(userText.value == ''  || passwordText.value == '' || isLoggedIn){
+            console.log('login failed')
             return
         }
 
@@ -42,8 +42,8 @@
         console.log(registration)
         authHeader = 'Basic ' + registration.userID
         if(registration.success){
-            authHeader = userText + ':' + password
-            this.$root.loggedIn(userText)
+            emit('signIn', userText, passwordText)
+            isLoggedIn = true
             router.push('/')
         }
         else{

@@ -22,14 +22,14 @@
     import { ref } from 'vue'
     const emit = defineEmits(['signIn'])
     const failedLogin = ref(false)
-    let authHeader
+    let isLoggedIn = false
 
     async function handleLogin(){
         let userText = document.getElementById("username").value
         let passwordText = document.getElementById("password").value
 
-        if(userText.value == ''  || passwordText.value == ''){
-            console.log('empty information')
+        if(userText.value == ''  || passwordText.value == '' || isLoggedIn){
+            console.log('login failed')
             return
         }
 
@@ -42,8 +42,8 @@
         const access = await response.json()
         console.log(access)
         if(access.success){
-            emit('signIn', userText)
-            authHeader = userText + ':' + password
+            emit('signIn', userText, passwordText)
+            isLoggedIn = true
             router.push('/')
         }
         else{

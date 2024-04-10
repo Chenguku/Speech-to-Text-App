@@ -1,12 +1,13 @@
 <script setup>
 import Navbar from './components/Navbar.vue'
 import { ref } from 'vue'
-
+const authHeader = ref('')
 const currentUser = ref('')
 
-function loggedIn(username){
+function loggedIn(username, password){
   console.log('logged in!')
   currentUser.value = username
+  authHeader.value = username + ':' + password
 }
 </script>
 
@@ -17,7 +18,7 @@ function loggedIn(username){
       <img src="./assets/mic-icon.svg" class="icon" alt="Icon" />
     </a>
   </div>
-  <router-view @signIn="loggedIn"></router-view>
+  <router-view @signIn="loggedIn" :authHeader="authHeader"></router-view>
 </template>
 
 <style scoped>
