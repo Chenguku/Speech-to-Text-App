@@ -1,8 +1,13 @@
 <script setup>
 import Navbar from './components/Navbar.vue'
 import { ref } from 'vue'
-let str
-const currentUser = ref(str)
+
+const currentUser = ref('')
+
+function loggedIn(username){
+  console.log('logged in!')
+  currentUser.value = username
+}
 </script>
 
 <template>
@@ -12,8 +17,7 @@ const currentUser = ref(str)
       <img src="./assets/mic-icon.svg" class="icon" alt="Icon" />
     </a>
   </div>
-  <router-view></router-view>
-  <!-- <HelloWorld msg="Click to Start" /> -->
+  <router-view @signIn="loggedIn"></router-view>
 </template>
 
 <style scoped>

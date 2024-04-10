@@ -4,6 +4,9 @@
     <p>Username:</p>
     <input type="text" id="username">
     </div>
+    <div class="hasaccount" id="notice">
+        <p v-if="failedLogin">Username or Password is Incorrect</p>
+    </div>
     <div class="textinput">
     <p>Password:</p>
     <input type="text" id="password">
@@ -16,10 +19,14 @@
 
 <script setup>
     import router from '../router'
+    import { ref } from 'vue'
+    const emit = defineEmits(['signIn'])
+    const failedLogin = ref(false)
+    let authHeader
 
     async function handleLogin(){
-        let userText = document.getElementById("username")
-        let passwordText = document.getElementById("password")
+        let userText = document.getElementById("username").value
+        let passwordText = document.getElementById("password").value
 
         if(userText.value == ''  || passwordText.value == ''){
             console.log('empty information')
@@ -35,7 +42,12 @@
         const access = await response.json()
         console.log(access)
         if(access.success){
+            emit('signIn', userText)
+            authHeader = userText + ':' + password
             router.push('/')
+        }
+        else{
+            failedLogin.value = true
         }
     }
 </script>
@@ -65,5 +77,8 @@
     .hasaccount{
         text-align: right;
         margin-right: 30%;
+    }
+    #notice {
+        color: red;
     }
 </style>

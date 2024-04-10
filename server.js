@@ -2,7 +2,9 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const PORT = process.env.PORT || 3000
+const database = require('./data/index')
 
+app.use(express.json())
 
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
@@ -11,10 +13,9 @@ app.use((req, res, next) => {
   next();
 })
 
-app.use('/login', (req, res) => {
-  res.setHeader('Content-Type', 'application.json')
-  res.end(JSON.stringify({"success": true}))
-});
+app.use('/login', database.login);
+
+app.use('/register', database.register)
 
 app.listen(PORT, err => {
     if(err) console.log(err)
