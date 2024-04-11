@@ -20,6 +20,7 @@
 <script setup>
     import router from '../router'
     import { ref } from 'vue'
+    const emit = defineEmits(['signIn'])
     const failedRegister = ref(false)
     let isLoggedIn = false
 
@@ -40,7 +41,6 @@
         })
         const registration = await response.json()
         console.log(registration)
-        authHeader = 'Basic ' + registration.userID
         if(registration.success){
             emit('signIn', userText, passwordText)
             isLoggedIn = true

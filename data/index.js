@@ -1,19 +1,63 @@
+const { listeners } = require('process')
+
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./data/users')
 
 exports.authenticate = function (req, res, next) {
     let auth = req.headers.authorization
+    console.log(auth)
     if (!auth) {
-        response.setHeader('WWW-Authenticate', 'Basic realm="need to login"')
-        response.writeHead(401, {
+        res.setHeader('WWW-Authenticate', 'Basic realm="need to login"')
+        res.writeHead(401, {
             'Content-Type': 'text/html'
         })
         console.log('No authorization found, send 401.')
-        response.end();
+        res.end();
     }
     else{
-        var tmp = auth.split(' ')
+        credentials = auth.split(':')
+        let username = credentials[0]
+        let password = credentials[1]
+        console.log("User:" + username)
+        console.log("Password:" + password)
+        
+        let authorized = false
+        db.all("SELECT * FROM users", function(err, users){
+            for(let i = 0; i < users.length; i++){
+                console.log('login')
+                if(users[i].username == username && users[i].password == password){
+                    authorized = true
+                    req.userID = username
+                    req.userRole = users[i].role
+                    break
+                }
+            }
+        })
+        if(!authorized){
+            res.setHeader('WWW-Authenticate', 'Basic realm="need to login"')
+            res.writeHead(401, {
+                'Content-Type': 'text/html'
+              })
+              console.log('No authorization found, send 401.')
+              res.end()      
+        }
+        else{
+            next()
+        }
+    }
+}
 
+exports.transcripts = function(req, res, next){
+    let rows
+    if(req.userRole == 'guest'){
+        db.all("SELECT * FROM transcripts WHERE username LIKE '" + req.userID + "'", function(err, transcripts){
+            rows = transcripts
+        })
+    }
+    if(req.userRole == 'admin'){
+        db.all("SELECT * FROM transcripts", function(err, transcripts){
+            rows = transcripts
+        })
     }
 }
 

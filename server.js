@@ -13,9 +13,9 @@ app.use((req, res, next) => {
   next();
 })
 
-app.use('/login', database.login);
+app.use('/login', database.login)
 app.use('/register', database.register)
-app.use('/api', database.authenticate)
+//app.use('/api', database.authenticate)
 
 app.listen(PORT, err => {
     if(err) console.log(err)

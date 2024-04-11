@@ -17,7 +17,7 @@ const routes = [{
     path: '/transcripts', name: 'Transcripts', component: Transcripts, props: true
 }
 ]
-
+ 
 const router = createRouter({
     history: createWebHistory(),
     routes: routes
